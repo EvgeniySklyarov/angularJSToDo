@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/style.css">
+    <title>AngularJS ToDo</title>
+</head>
+<body ng-app="todoApp">
+    <div class="container" ng-controller="todoController">
+        <header class="main-header">
+            <h1 class="main-header__title">todos</h1>
+            <input id="toggle-all" class="todo-form__toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
+            <label for="toggle-all" ng-show="todos.length">
+                Mark All
+            </label>
+            <form class="todo-form" ng-submit="addTodo()">
+                <input type="text" class="todo-form__new-item" ng-model="newTodo" placeholder="What needs to be done?" autofocus>
+            </form>
+        </header>
+
+        <section class="main">
+            <ul class="todo-list">
+                <li class="todo-list__item" ng-repeat="todo in todos" ng-class="todo.viewClass">
+                    <input type="checkbox" class="todo-list__checkbox" ng-model="todo.completed" ng-change="watch()">
+                    <label class="todo-list__title">{{todo.title}}</label>
+                    <button class="todo-list__btn-delete" ng-click="removeTodo(todo)">Delete</button>
+                </li>
+            </ul>
+        </section>
+
+        <footer class="main-footer" ng-show="todos.length">
+            <span class="todo-count">{{remainingCount}}</span>
+            <ng-pluralize count="remainingCount" when="{ one: 'item left', other: 'items left' }"></ng-pluralize>
+            <ul class="filters">
+                <li>
+                    <input id="view-all" type="radio" value="all" name="radioTodos" checked ng-click="viewAllTodo()">
+                    <label for="view-all">All</label>
+                </li>
+                <li>
+                    <input id="view-active" type="radio" value="active" name="radioTodos" ng-click="viewActiveTodo()">
+                    <label for="view-active">Active</label>
+                </li>
+                <li>
+                    <input id="view-completed" type="radio" value="comleted" name="radioTodos" ng-click="viewCompletedTodo()">
+                    <label for="view-completed">Completed</label>
+                </li>
+            </ul>
+            <button class="clear-completed" ng-click="clearCompletedTodos()" ng-show="completedCount">Clear completed</button>
+        </footer>
+    </div>
+
+
+
+
+
+    <script src="js/lib/angular.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="js/app.js"></script>
+    <script src="js/controllers/todoController.js"></script>
+</body>
+</html>
