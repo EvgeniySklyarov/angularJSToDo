@@ -20,7 +20,7 @@ todoApp.controller('todoController', function ($scope, $filter) {
             $scope.allChecked = false;
         }
     };
-
+    
     $scope.addTodo = function () {
 
         if (!$scope.newTodo.trim()) {
@@ -79,5 +79,11 @@ todoApp.controller('todoController', function ($scope, $filter) {
         $scope.todos.forEach(function (todo) {
             todo.completed === true ? todo.viewClass = 'show' : todo.viewClass = 'hide';
         });
+    };
+
+    $scope.saveEdit = function (todo) {
+        if (!todo.title.trim()) {
+            $scope.removeTodo(todo);
+        }
     };
 });
