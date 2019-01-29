@@ -6,14 +6,14 @@ todoApp.controller('todoController', function ($scope, $filter) {
         $scope.remainingCount = $filter('filter')($scope.todos, { completed: false }).length;
         $scope.completedCount = $scope.todos.length - $scope.remainingCount;
 
-        var test = true;
+        var checkAllCompleted = true;
         $scope.todos.forEach(function (todo) {
             if(!todo.completed) {
-                test = false;
+                checkAllCompleted = false;
             }
         });
 
-        if(test) {
+        if(checkAllCompleted) {
             $('#toggle-all').prop('checked', true);
             $scope.allChecked = true;
         } else {
